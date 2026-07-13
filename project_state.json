@@ -25,7 +25,7 @@
     {
       "id": 5,
       "description": "Build a modular machine learning training module that supports multiple algorithms (e.g., linear regression, decision trees, and deep learning models using TensorFlow or PyTorch).",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "id": 6,
