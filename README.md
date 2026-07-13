@@ -14,3 +14,4 @@ The solution is a modular, scalable, and cloud-based machine learning platform b
 - **Completed Task:** Create Dockerfiles for the backend, frontend, and ML components to enable containerization. Set up a docker-compose file to orchestrate the containers locally.
 - **Completed Task:** Develop a data ingestion module to handle uploading, validating, and storing datasets. Include support for CSV, JSON, and database connections.
 - **Completed Task:** Implement a data preprocessing pipeline using Pandas and Scikit-learn to clean, normalize, and transform raw data into a suitable format for machine learning.
+- **Completed Task:** Build a modular machine learning training module that supports multiple algorithms (e.g., linear regression, decision trees, and deep learning models using TensorFlow or PyTorch).
