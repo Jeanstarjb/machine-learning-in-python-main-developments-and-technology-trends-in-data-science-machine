@@ -10,7 +10,7 @@
     {
       "id": 2,
       "description": "Create Dockerfiles for the backend, frontend, and ML components to enable containerization. Set up a docker-compose file to orchestrate the containers locally.",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "id": 3,
