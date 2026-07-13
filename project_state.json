@@ -15,7 +15,7 @@
     {
       "id": 3,
       "description": "Develop a data ingestion module to handle uploading, validating, and storing datasets. Include support for CSV, JSON, and database connections.",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "id": 4,
