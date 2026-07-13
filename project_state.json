@@ -30,7 +30,7 @@
     {
       "id": 6,
       "description": "Develop an evaluation module to calculate key metrics (e.g., accuracy, precision, recall, F1 score) and visualize results using libraries like Matplotlib and Seaborn.",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "id": 7,
