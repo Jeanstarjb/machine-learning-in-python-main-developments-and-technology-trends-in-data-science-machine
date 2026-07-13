@@ -5,7 +5,7 @@
     {
       "id": 1,
       "description": "Set up the project repository with a clear folder structure for backend, frontend, and ML components. Initialize version control with Git and integrate CI/CD pipelines using GitHub Actions.",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "id": 2,
