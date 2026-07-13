@@ -20,7 +20,7 @@
     {
       "id": 4,
       "description": "Implement a data preprocessing pipeline using Pandas and Scikit-learn to clean, normalize, and transform raw data into a suitable format for machine learning.",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "id": 5,
