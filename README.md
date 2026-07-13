@@ -11,3 +11,4 @@ The solution is a modular, scalable, and cloud-based machine learning platform b
 ## Progress Log
 
 - **Completed Task:** Set up the project repository with a clear folder structure for backend, frontend, and ML components. Initialize version control with Git and integrate CI/CD pipelines using GitHub Actions.
+- **Completed Task:** Create Dockerfiles for the backend, frontend, and ML components to enable containerization. Set up a docker-compose file to orchestrate the containers locally.
