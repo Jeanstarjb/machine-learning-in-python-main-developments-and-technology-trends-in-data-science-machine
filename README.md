@@ -16,3 +16,4 @@ The solution is a modular, scalable, and cloud-based machine learning platform b
 - **Completed Task:** Implement a data preprocessing pipeline using Pandas and Scikit-learn to clean, normalize, and transform raw data into a suitable format for machine learning.
 - **Completed Task:** Build a modular machine learning training module that supports multiple algorithms (e.g., linear regression, decision trees, and deep learning models using TensorFlow or PyTorch).
 - **Completed Task:** Develop an evaluation module to calculate key metrics (e.g., accuracy, precision, recall, F1 score) and visualize results using libraries like Matplotlib and Seaborn.
+- **Completed Task:** Create a RESTful API using FastAPI to expose endpoints for uploading data, triggering training, fetching evaluation metrics, and deploying models.
