@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import data_router, model_router, preprocessing_router
+from routers import data_router, model_router, preprocessing_router, training_router, evaluation_router, deployment_router
 from core.config import settings
 import os
 from database.session import engine
@@ -21,10 +21,12 @@ app.add_middleware(
 app.include_router(data_router.router)
 app.include_router(model_router.router)
 app.include_router(preprocessing_router.router)
+app.include_router(training_router.router)
+app.include_router(evaluation_router.router)
+app.include_router(deployment_router.router)
 
 @app.on_event("startup")
 def startup_event():
     os.makedirs(settings.data_dir, exist_ok=True)
-    os.makedirs(os.path.join(settings.data_dir, "uploads"), exist_ok=True)
-    os.makedirs(os.path.join(settings.data_dir, "processed"), exist_ok=True)
+    os.makedirs(settings.model_dir, exist_ok=True)
     DatasetMetadata.metadata.create_all(bind=engine)
