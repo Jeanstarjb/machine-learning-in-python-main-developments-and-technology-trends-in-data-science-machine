@@ -18,33 +18,38 @@ async def evaluate_model(job_id: str, db: Session = Depends(get_db)):
     if not model_metadata:
         raise HTTPException(status_code=404, detail="Model not found")
 
-    # Load model and dataset
+    # Load model
     model_path = model_metadata.model_path
-    dataset_path = os.path.join(settings.data_dir, model_metadata.parameters['dataset_name'])
-    if not os.path.exists(model_path) or not os.path.exists(dataset_path):
-        raise HTTPException(status_code=404, detail="Model or dataset not found")
+    if not os.path.exists(model_path):
+        raise HTTPException(status_code=404, detail="Model file not found")
 
     model = joblib.load(model_path)
+
+    # Load dataset
+    dataset_path = os.path.join(settings.data_dir, model_metadata.parameters['dataset_name'])
+    if not os.path.exists(dataset_path):
+        raise HTTPException(status_code=404, detail="Dataset not found")
+
     df = pd.read_csv(dataset_path)
-
     X = df.drop(columns=[model_metadata.parameters['target_column']])
-    y_true = df[model_metadata.parameters['target_column']]
+    y = df[model_metadata.parameters['target_column']]
 
-    # Generate predictions
-    y_pred = model.predict(X)
-    y_proba = model.predict_proba(X)[:, 1] if hasattr(model, 'predict_proba') else None
+    # Evaluate model
+    predictions = model.predict(X)
+    y_proba = None
+    if hasattr(model, "predict_proba"):
+        y_proba = model.predict_proba(X)
 
-    # Calculate metrics
-    if model_metadata.parameters['problem_type'] == 'classification':
-        metrics = EvaluationMetrics.calculate_classification_metrics(y_true, y_pred, y_proba)
-        cm_path = os.path.join(settings.model_dir, f"{job_id}_confusion_matrix.png")
-        EvaluationVisualization.plot_confusion_matrix(np.array(metrics['confusion_matrix']), model.classes_, cm_path)
-        metrics['confusion_matrix_plot'] = cm_path
-    else:
-        metrics = EvaluationMetrics.calculate_regression_metrics(y_true, y_pred)
+    metrics = EvaluationMetrics.calculate_classification_metrics(y, predictions, y_proba)
 
-    # Update model metadata with evaluation results
+    # Save metrics to database
     model_metadata.metrics = metrics
     db.commit()
 
-    return {"job_id": job_id, "metrics": metrics}
+    # Generate and save visualizations
+    cm = metrics["confusion_matrix"]
+    class_names = list(df[model_metadata.parameters['target_column']].unique())
+    cm_path = os.path.join(settings.model_dir, f"{job_id}_confusion_matrix.png")
+    EvaluationVisualization.plot_confusion_matrix(np.array(cm), class_names, cm_path)
+
+    return {"job_id": job_id, "metrics": metrics, "confusion_matrix_path": cm_path}
