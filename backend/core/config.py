@@ -5,7 +5,11 @@ class Settings(BaseSettings):
     api_prefix: str = "/api/v1"
     database_url: str = "sqlite:///./mlplatform.db"
     data_dir: str = "./data"
-    model_dir: str = "./models"  # Added model directory
+    model_dir: str = "./models"
+    aws_access_key_id: str
+    aws_secret_access_key: str
+    aws_region: str = "us-east-1"
+    s3_bucket_name: str
 
     class Config:
         env_file = ".env"
