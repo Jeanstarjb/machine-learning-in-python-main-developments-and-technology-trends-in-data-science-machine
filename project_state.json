@@ -45,7 +45,7 @@
     {
       "id": 9,
       "description": "Integrate cloud storage (e.g., AWS S3, GCP Storage) for storing datasets, trained models, and logs.",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "id": 10,
