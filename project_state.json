@@ -35,7 +35,7 @@
     {
       "id": 7,
       "description": "Create a RESTful API using FastAPI to expose endpoints for uploading data, triggering training, fetching evaluation metrics, and deploying models.",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "id": 8,
