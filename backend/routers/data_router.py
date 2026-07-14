@@ -3,9 +3,9 @@ from sqlalchemy.orm import Session
 from database.session import get_db
 from models.dataset_metadata import DatasetMetadata
 from core.config import settings
+from core.cloud_storage import S3Client
 import pandas as pd
 import io
-import os
 from werkzeug.utils import secure_filename
 
 router = APIRouter(prefix="/data", tags=["Data Ingestion"])
@@ -20,71 +20,27 @@ async def upload_csv(file: UploadFile = File(...), db: Session = Depends(get_db)
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Invalid CSV file: {str(e)}"
         )
-    
+
     filename = secure_filename(file.filename)
-    upload_dir = os.path.join(settings.data_dir, "uploads")
-    os.makedirs(upload_dir, exist_ok=True)
-    file_path = os.path.join(upload_dir, filename)
-    
-    with open(file_path, "wb") as f:
+    local_file_path = f"{settings.data_dir}/{filename}"
+    with open(local_file_path, "wb") as f:
         f.write(contents)
-    
-    db_record = DatasetMetadata(
+
+    # Upload file to S3
+    s3_client = S3Client()
+    s3_path = s3_client.upload_file(local_file_path, f"datasets/{filename}")
+
+    # Save metadata to database
+    dataset_metadata = DatasetMetadata(
         filename=filename,
         file_type="csv",
         size=len(contents),
-        columns=",".join(df.columns.tolist()),
-        source_type="upload"
+        columns=",".join(df.columns),
+        source_type="s3",
+        connection_string=s3_path
     )
-    db.add(db_record)
+    db.add(dataset_metadata)
     db.commit()
-    
-    return {"filename": filename, "columns": df.columns.tolist(), "message": "File uploaded successfully"}
+    db.refresh(dataset_metadata)
 
-@router.post("/upload/json")
-async def upload_json(file: UploadFile = File(...), db: Session = Depends(get_db)):
-    try:
-        contents = await file.read()
-        df = pd.read_json(io.BytesIO(contents))
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Invalid JSON file: {str(e)}"
-        )
-    
-    filename = secure_filename(file.filename)
-    upload_dir = os.path.join(settings.data_dir, "uploads")
-    os.makedirs(upload_dir, exist_ok=True)
-    file_path = os.path.join(upload_dir, filename)
-    
-    with open(file_path, "wb") as f:
-        f.write(contents)
-    
-    db_record = DatasetMetadata(
-        filename=filename,
-        file_type="json",
-        size=len(contents),
-        columns=",".join(df.columns.tolist()),
-        source_type="upload"
-    )
-    db.add(db_record)
-    db.commit()
-    
-    return {"filename": filename, "columns": df.columns.tolist(), "message": "File uploaded successfully"}
-
-@router.post("/connect/database")
-async def connect_database(connection_str: str, db: str = Depends(get_db)):
-    from sqlalchemy import create_engine, inspect
-    from sqlalchemy.exc import SQLAlchemyError
-    
-    try:
-        engine = create_engine(connection_str)
-        with engine.connect() as conn:
-            inspector = inspect(engine)
-            tables = inspector.get_table_names()
-            return {"status": "success", "tables": tables}
-    except SQLAlchemyError as e:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Database connection failed: {str(e)}"
-        )
+    return {"message": "File uploaded successfully", "s3_path": s3_path, "dataset_id": dataset_metadata.id}
