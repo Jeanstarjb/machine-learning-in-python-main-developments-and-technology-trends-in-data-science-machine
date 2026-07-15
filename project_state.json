@@ -50,7 +50,7 @@
     {
       "id": 10,
       "description": "Set up a model deployment pipeline using Docker and Kubernetes to deploy trained models as scalable REST APIs.",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "id": 11,
