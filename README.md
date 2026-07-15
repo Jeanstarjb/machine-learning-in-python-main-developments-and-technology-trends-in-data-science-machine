@@ -20,3 +20,4 @@ The solution is a modular, scalable, and cloud-based machine learning platform b
 - **Completed Task:** Design and develop a user-friendly frontend dashboard using React.js to allow users to interact with the platform, upload datasets, monitor training progress, and view results.
 - **Completed Task:** Integrate cloud storage (e.g., AWS S3, GCP Storage) for storing datasets, trained models, and logs.
 - **Completed Task:** Set up a model deployment pipeline using Docker and Kubernetes to deploy trained models as scalable REST APIs.
+- **Completed Task:** Implement a scheduling and orchestration system using Kubernetes to manage resource allocation for training and inference tasks.
