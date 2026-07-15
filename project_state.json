@@ -60,7 +60,7 @@
     {
       "id": 12,
       "description": "Add authentication and authorization to the backend API using OAuth2 to secure the platform.",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "id": 13,
