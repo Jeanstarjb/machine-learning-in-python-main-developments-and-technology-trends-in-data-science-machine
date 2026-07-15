@@ -55,7 +55,7 @@
     {
       "id": 11,
       "description": "Implement a scheduling and orchestration system using Kubernetes to manage resource allocation for training and inference tasks.",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "id": 12,
