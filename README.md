@@ -1,232 +1,223 @@
 # 🌟 ML Platform: A Modular, Scalable, and Cloud-based Machine Learning Platform
 
-[![Python](https://img.shields.io/badge/Python-3.9-blue.svg)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-%5E0.95.2-green.svg)](https://fastapi.tiangolo.com/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Python](https://img.shields.io/badge/Python-3.9-blue.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-%5E0.95.2-green.svg)
+![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ---
 
 ## 📜 Overview
 
-The **ML Platform** is an end-to-end, modular, and scalable machine learning platform, designed for organizations, researchers, and data scientists who aim to build, evaluate, and deploy machine learning models efficiently. Built with the power of Python and FastAPI, and leveraging cloud technologies, this platform provides a robust backbone for tackling real-world machine learning problems.
+The **ML Platform** is a comprehensive, modular, and scalable solution for end-to-end machine learning workflows. It empowers developers, data scientists, and organizations to efficiently manage the entire machine learning lifecycle—from data preprocessing to model deployment—using a cloud-based and extensible architecture. 
 
-### 🌍 The Societal Problem It Solves
+This platform supports diverse machine learning algorithms, integrates with cloud storage systems, and provides robust monitoring, evaluation, and logging capabilities. Built on modern technologies like FastAPI, Docker, and Prometheus, it is designed to be highly modular, extensible, and production-ready.
 
-In today's data-driven world, organizations generate massive amounts of data every day. Without the right tools and infrastructure, they struggle to:
+---
 
-- Analyze and make sense of this data.
-- Automate processes and make data-informed decisions.
-- Deploy machine learning models at scale.
+## 🌍 Societal Problem It Solves
 
-The ML Platform bridges this gap by enabling seamless data processing, model training, evaluation, and deployment. It empowers users to unlock the full potential of machine learning while reducing the complexity of implementing these solutions.
+In today's rapidly evolving world, organizations struggle to transition from experimental machine learning models to scalable production systems. Challenges include:
+
+- Managing large volumes of data.
+- Deploying machine learning models in a scalable and efficient way.
+- Monitoring model performance and system health in real-time.
+- Simplifying the integration of machine learning into existing software systems.
+
+The **ML Platform** addresses these challenges by providing a unified, all-in-one solution that accelerates time-to-market for machine learning projects while maintaining operational reliability and scalability.
 
 ---
 
 ## 🏗️ Architecture
 
-The ML Platform is designed with modularity and scalability in mind. Here's a high-level overview of the architecture:
+The ML Platform is built with modularity and scalability in mind, leveraging a clean and extensible architecture. Below is an overview of the key components:
 
 ```
-+-------------------+
-|    Frontend       |  (External Client or UI)
-+---+---------------+
-    |
-    v
-+-----------+        +------------------+
-| FastAPI   +------->|    Routers       |
-| Backend   |        +------------------+
-+----+------+                 |
-     |                        v
-     |             +-----------------------+
-     |             |   Core Components     |
-     |             | (Preprocessing, ML,   |
-     |             |  Evaluation, Security,|
-     |             |  Monitoring, etc.)    |
-     +---------------------+---------------+
-                           |
-                           v
-                 +-------------------+
-                 |   Cloud Storage   |
-                 +-------------------+
+ML Platform
+├── Backend
+│   ├── APIs
+│   │   ├── Data Management
+│   │   ├── Preprocessing
+│   │   ├── Training
+│   │   ├── Evaluation
+│   │   └── Deployment
+│   ├── Core
+│   │   ├── Cloud Storage (AWS S3 Integration)
+│   │   ├── Config Management
+│   │   ├── Training Pipelines (Linear, Tree, DNN)
+│   │   ├── Preprocessing Pipelines
+│   │   ├── Monitoring (Prometheus Metrics)
+│   │   ├── Evaluation (Metrics & Visualization)
+│   │   └── Security (JWT Authentication)
+│   └── Database (SQLAlchemy ORM)
+├── Frontend (Optional)
+├── Monitoring (Prometheus + Grafana Integration)
+└── CI/CD Pipelines (Docker + Kubernetes Ready)
 ```
 
-### 🔑 Key Components:
-1. **Data Ingestion**: Import data from various sources into the platform.
-2. **Preprocessing**: Data cleaning, feature engineering, and transformation.
-3. **Model Training**: A flexible pipeline supporting multiple machine learning algorithms including linear models, decision trees, and deep neural networks.
-4. **Evaluation**: Metrics calculation and visualization for assessing model performance.
-5. **Deployment**: Seamless deployment of trained models with APIs for inference.
-6. **Monitoring**: Built-in monitoring of API requests, training jobs, prediction latency, and system resource usage using Prometheus.
-7. **Cloud Integration**: S3-based storage for data and models, enabling seamless scalability.
+This architecture enables organizations to utilize the platform's components independently or as an integrated system, making it ideal for both small-scale and enterprise-level machine learning workflows.
 
 ---
 
 ## 🚀 Getting Started
 
-### 🔧 Prerequisites
+### Prerequisites
 
-Ensure you have the following installed:
+Before you begin, ensure you have the following installed:
 
-- [Python 3.9+](https://www.python.org/downloads/)
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
-- AWS credentials for S3 storage (set in `.env` file)
+- Python 3.9 or later
+- Docker and Docker Compose
+- AWS credentials (for S3 integration)
 
-### 🛠️ Installation
+### Installation
 
-1. Clone the repository:
+1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/your-repo/ml-platform
+   git clone https://github.com/your-repo/ml-platform.git
    cd ml-platform
    ```
 
-2. Create and configure a `.env` file:
+2. **Set Up Environment Variables:**
 
-   ```env
-   aws_access_key_id=your_aws_access_key
-   aws_secret_access_key=your_aws_secret_key
-   aws_region=us-east-1
-   s3_bucket_name=your_s3_bucket_name
-   secret_key=your_secret_key
+   Create a `.env` file in the `backend` directory:
+
+   ```bash
+   touch backend/.env
    ```
 
-3. Build and run the Docker container:
+   Add the following required variables:
+
+   ```
+   AWS_ACCESS_KEY_ID=your-aws-access-key
+   AWS_SECRET_ACCESS_KEY=your-aws-secret-key
+   AWS_REGION=us-east-1
+   S3_BUCKET_NAME=your-s3-bucket-name
+   SECRET_KEY=your-secret-key
+   ```
+
+3. **Build and Start the Platform:**
+
+   Run the following commands from the root directory:
 
    ```bash
    docker-compose up --build
    ```
 
-4. Access the FastAPI interactive API documentation:
+4. **Access the Platform APIs:**
 
-   Open your browser and go to: [http://localhost:8000/docs](http://localhost:8000/docs)
+   The APIs are accessible at `http://localhost:8000`.
+
+   - OpenAPI documentation: [http://localhost:8000/docs](http://localhost:8000/docs)
+   - Prometheus metrics: [http://localhost:8000/metrics](http://localhost:8000/metrics)
 
 ---
 
 ## ✨ Features
 
-### 🎛️ **Modular Design**
-- Plug-and-play architecture: add or update components with minimal changes.
-- Supports a variety of machine learning algorithms including:
-  - Linear Regression
-  - Logistic Regression
-  - Decision Trees
-  - Deep Neural Networks (via TensorFlow)
+### 🔧 Modular Architecture
+- Use only the components you need, whether it's preprocessing, training, evaluation, or deployment.
+- Easily extend the platform by adding new modules or algorithms.
 
-### 📊 **Advanced Evaluation and Visualization**
-- Comprehensive metrics for classification and regression tasks:
-  - Accuracy, precision, recall, F1-score, ROC-AUC, and more.
-- Beautiful visualizations with Matplotlib and Seaborn:
-  - Confusion matrices, metric trends, etc.
+### 🌐 API-Driven
+- Built with **FastAPI**, providing a fast, interactive, and developer-friendly API interface.
+- Supports versioning and modular routing for various operations.
 
-### ☁️ **Cloud Storage Integration**
-- Seamless integration with AWS S3 for storing datasets, models, and results.
-- Secure and scalable storage for enterprise-grade applications.
+### 📂 Cloud Storage Integration
+- Seamless integration with **Amazon S3** for storing datasets, models, and results.
+- Secure access to data using environment-specific credentials.
 
-### 🔒 **Robust Security**
-- JWT-based authentication with OAuth2.
-- Password hashing using industry-standard `bcrypt`.
-- Fine-grained access control for API endpoints.
+### 📊 Real-Time Monitoring
+- Integrated with **Prometheus** for real-time metrics tracking.
+- Key metrics include API requests, training job counts, prediction latencies, and system resource usage.
+- Ready for **Grafana** dashboards.
 
-### 📈 **Monitoring and Metrics**
-- Built-in Prometheus metrics for:
-  - API requests
-  - Training job tracking
-  - Prediction latency
-  - System resource usage (CPU/memory)
+### 📉 Model Training and Evaluation
+- Supports multiple algorithms: Linear Regression, Decision Trees, and Deep Neural Networks.
+- Built-in evaluation metrics like accuracy, precision, recall, F1 score, and ROC-AUC.
+- Visualization tools for confusion matrices and metric trends.
 
-### ⚙️ **Configurable Preprocessing Pipelines**
-- Automated handling of missing values, feature encoding, scaling, and transformations.
-- Config-driven design for easy customization.
+### 🔒 Security
+- Implements secure authentication using JWT.
+- Password hashing with **bcrypt** ensures user credentials are protected.
+- Configurable token expiration for session management.
 
-### 📦 **Dockerized Deployment**
-- Fully containerized architecture with Docker.
-- Easy setup and deployment on any environment.
+### 🛠️ Preprocessing Pipelines
+- Customizable data pipelines for handling missing values, encoding, and scaling.
+- Supports pandas-based transformations for seamless integration with machine learning workflows.
 
----
+### 🏗️ CI/CD and Scalability
+- **Dockerized** for easy deployment and scaling.
+- Ready for deployment on cloud platforms using **Kubernetes** or other container orchestration tools.
 
-## 🛠️ Key Modules
+### 🛡️ Robust Logging
+- Centralized logging with **RotatingFileHandler** for efficient log management.
+- Stream logs to the console for real-time debugging.
 
-1. **Configuration Management**:
-   - Centralized configuration using `pydantic` for environment variables.
-   - `.env` file support for secure secrets management.
-
-2. **Data Preprocessing**:
-   - Handle missing values, normalize data, and perform feature engineering using `pandas` and `sklearn`.
-
-3. **Model Training**:
-   - Modular trainers for linear models, decision trees, and deep neural networks.
-   - Algorithm-agnostic design.
-
-4. **Evaluation**:
-   - Metrics calculation using `sklearn`.
-   - Visualization with `matplotlib` and `seaborn`.
-
-5. **Cloud Storage**:
-   - AWS S3 integration for file storage and retrieval.
-   - Error handling for secure uploads and downloads.
-
-6. **Monitoring**:
-   - Prometheus-based metrics for tracking system and application performance.
-
-7. **Authentication**:
-   - Secure JWT-based authentication and user authorization.
+### 📈 Extensible Training Framework
+- Easily add new machine learning algorithms to the training pipeline.
+- Supports hyperparameter tuning and distributed training.
 
 ---
 
-## 🧑‍💻 Usage
+## 🏁 Usage
 
-### Training and Deploying a Model
+1. **Data Upload:**
+   Use the `/data/upload` API to upload datasets to the platform.
 
-1. **Upload Dataset**: Use the `/data/upload` API endpoint to upload your dataset.
-2. **Preprocess Data**: Configure preprocessing steps and apply transformations via `/preprocessing/apply`.
-3. **Train Model**: Choose an algorithm and start training using the `/training/start` endpoint.
-4. **Evaluate Model**: Check metrics and visualizations at `/evaluation/metrics`.
-5. **Deploy Model**: Deploy the trained model as an API using the `/deployment/deploy` endpoint.
-6. **Make Predictions**: Use the `/predict` API to make real-time predictions.
+2. **Data Preprocessing:**
+   Define preprocessing configurations and invoke the `/preprocessing/apply` API to preprocess your data.
 
-### Monitoring API Requests and Metrics
+3. **Model Training:**
+   Submit a training job using the `/training/start` API. Specify the algorithm and configuration parameters.
 
-- Prometheus metrics are exposed at `/metrics`.
-- Use tools like Grafana to visualize performance metrics and system health.
+4. **Model Evaluation:**
+   Evaluate your trained models with the `/evaluation/metrics` API and generate visualizations for insights.
 
----
+5. **Model Deployment:**
+   Deploy models using the `/deployment/deploy` API for real-time inference.
 
-## 🤝 Contributing
-
-Contributions are welcome! To contribute:
-
-1. Fork the repository.
-2. Create your feature branch: `git checkout -b feature-name`.
-3. Commit your changes: `git commit -m 'Add some feature'`.
-4. Push to the branch: `git push origin feature-name`.
-5. Submit a pull request.
+6. **Monitoring:**
+   Access system and model health metrics via the `/metrics` endpoint.
 
 ---
 
-## 📜 License
+## 🧩 Extensibility
 
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+The platform is designed to be extensible. Key areas where you can add custom functionality include:
 
----
-
-## ⚡ Future Enhancements
-
-- Add support for additional machine learning algorithms (e.g., SVM, Random Forests).
-- Develop a web-based frontend for easier interaction.
-- Integrate with other cloud providers (e.g., Azure, GCP).
-- Enhance monitoring by adding more resource utilization metrics.
-- Support for distributed training using frameworks like Horovod or Ray.
+- **Training Algorithms:** Add new trainers by extending the `BaseTrainer` class in `backend/core/training`.
+- **APIs:** Add new endpoints in the `routers` folder.
+- **Preprocessing Pipelines:** Customize or expand the `PreprocessingPipeline` class to include additional preprocessing techniques.
+- **Monitoring Metrics:** Use the `prometheus_client` library to define new metrics in `backend/core/monitoring/metrics.py`.
 
 ---
 
-## ✉️ Contact
+## 🛠️ Technologies Used
 
-For questions or feedback, feel free to reach out:
+- **Programming Language:** Python 3.9
+- **Web Framework:** FastAPI
+- **Containerization:** Docker
+- **Cloud Storage:** AWS S3
+- **Database:** SQLite (can be replaced with any SQLAlchemy-supported database)
+- **Monitoring:** Prometheus
+- **Visualization:** Matplotlib, Seaborn
 
-- **Email**: your.email@example.com
-- **GitHub**: [Your GitHub Profile](https://github.com/your-profile)
+---
+
+## 📘 Documentation
+
+Comprehensive API documentation is available via the built-in OpenAPI interface. Access it by navigating to:
+
+[http://localhost:8000/docs](http://localhost:8000/docs)
+
+This includes detailed usage for each endpoint, sample payloads, and response structures.
+
+---
+
+## 🛡️ License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
 ---
 
