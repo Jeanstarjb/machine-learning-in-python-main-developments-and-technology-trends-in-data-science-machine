@@ -65,7 +65,7 @@
     {
       "id": 13,
       "description": "Write unit and integration tests for the backend API, frontend, and core ML modules to ensure reliability and robustness.",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "id": 14,
