@@ -1,0 +1,20 @@
+{
+  "title": "ML Platform Dashboard",
+  "panels": [
+    {
+      "title": "API Requests",
+      "type": "graph",
+      "targets": [{"expr": "rate(api_requests_total[5m])", "legend": "{{method}} {{endpoint}}"}]
+    },
+    {
+      "title": "System Resources",
+      "type": "gauge",
+      "targets": [{"expr": "system_cpu_usage_percent"}, {"expr": "process_resident_memory_bytes"}]
+    },
+    {
+      "title": "Training Jobs",
+      "type": "piechart",
+      "targets": [{"expr": "sum by (algorithm) (training_jobs_total)"}]
+    }
+  ]
+}
