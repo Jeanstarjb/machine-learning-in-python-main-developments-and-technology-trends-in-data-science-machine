@@ -22,3 +22,4 @@ The solution is a modular, scalable, and cloud-based machine learning platform b
 - **Completed Task:** Set up a model deployment pipeline using Docker and Kubernetes to deploy trained models as scalable REST APIs.
 - **Completed Task:** Implement a scheduling and orchestration system using Kubernetes to manage resource allocation for training and inference tasks.
 - **Completed Task:** Add authentication and authorization to the backend API using OAuth2 to secure the platform.
+- **Completed Task:** Write unit and integration tests for the backend API, frontend, and core ML modules to ensure reliability and robustness.
