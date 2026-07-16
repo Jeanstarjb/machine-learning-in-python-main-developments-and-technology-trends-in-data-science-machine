@@ -70,7 +70,7 @@
     {
       "id": 14,
       "description": "Set up monitoring and logging for the platform using tools like Prometheus and Grafana to track system performance and detect issues.",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "id": 15,
